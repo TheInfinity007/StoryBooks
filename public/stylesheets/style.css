@@ -10,5 +10,17 @@ p{
 	width:400px;
 	margin-top:50px;
 	text-align: center;
-
+}
+.fa-small
+{
+	font-size: 12px;
+}
+.btn-float
+{
+	float:left;
+	margin-right: 10px;
+}
+.img-small
+{
+	width:180px;
 }

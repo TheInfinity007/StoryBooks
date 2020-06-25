@@ -4,6 +4,7 @@ const dotenv = require('dotenv');
 const morgan = require('morgan');
 const exphbs = require('express-handlebars');
 const connectDB = require('./config/db');
+const methodOverride = require('method-override');
 const passport = require('passport');
 const session = require('express-session');
 const MongoStore = require('connect-mongo')(session);
@@ -18,17 +19,19 @@ const app = express();
 //Body parser
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json())
+app.use(methodOverride("_method"));
 
 if(process.env.NODE_ENV == 'development'){
 	app.use(morgan('dev'));
 }
 
 //Handlebars Helpers
-const { formatDate, stripTags, truncate, editIcon } = require('./helpers/hbs');
+const { formatDate, stripTags, truncate, editIcon, select } = require('./helpers/hbs');
 
 //Handlebars
-app.engine('.hbs', exphbs({helpers: { formatDate, stripTags, truncate, editIcon}, defaultLayout: 'main', extname: '.hbs'}));
+app.engine('.hbs', exphbs({helpers: { formatDate, stripTags, truncate, editIcon, select}, defaultLayout: 'main', extname: '.hbs'}));
 app.set('view engine', '.hbs');
+
 
 //Sessions
 app.use(session({
